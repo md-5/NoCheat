@@ -473,6 +473,7 @@ public class MovingCheck extends Check {
 	public void respawned(PlayerRespawnEvent event) {
 		MovingData data = MovingData.get(event.getPlayer());
 		data.lastLocation = event.getRespawnLocation(); // We expect the player to be there next
+		data.setBackPoint = event.getRespawnLocation().clone(); // We expect the player to be there next
 	}
 
 	/**
@@ -559,12 +560,18 @@ public class MovingCheck extends Check {
 
 		double y = data.setBackPoint.getY();
 		// search for the first solid block up to 5 blocks below the setbackpoint and teleport the player there
-		for(int i = 0; i < 20; i++) {
+		int i = 0;
+		
+		for(; i < 20; i++) {
 			if(playerIsOnGround(data.setBackPoint, -0.5*i) != MovingData.NONSOLID) {
-				y -= 0.5*i;
+
 				break;
 			}
-		}	
+		}
+		
+		y -= 0.5*i;
+		
+		data.setBackPoint.setY(y);
 
 		Location t = new Location(data.setBackPoint.getWorld(), data.setBackPoint.getX(), y, data.setBackPoint.getZ(), event.getTo().getYaw(), event.getTo().getPitch());
 
