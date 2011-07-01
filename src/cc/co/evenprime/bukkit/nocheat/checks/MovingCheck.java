@@ -43,10 +43,10 @@ public class MovingCheck extends Check {
 	}
 
 	// How many move events can a player have in air before he is expected to lose altitude (or land somewhere)
-	private final static int jumpingLimit = 4;
+	private final static int jumpingLimit = 5;
 
 	// How high may a player get compared to his last location with ground contact
-	private final static double jumpHeight = 1.3D;
+	private final static double jumpHeight = 1.35D;
 
 	// How high may a player move in one event on ground
 	private final static double stepHeight = 0.501D;
@@ -193,7 +193,7 @@ public class MovingCheck extends Check {
 				limit += jumpHeight - (data.jumpPhase-jumpingLimit) * 0.2D;
 			else limit += jumpHeight;
 
-			final int onGroundTo = playerIsOnGround(to, 0.5D);
+			final int onGroundTo = playerIsOnGround(to, 0.0D);
 
 			if(onGroundTo != MovingData.NONSOLID) limit += stepHeight;
 
@@ -205,7 +205,7 @@ public class MovingCheck extends Check {
 			if(violationLevelVertical < 0) {
 				if(onGroundTo != MovingData.NONSOLID) { // Land
 					data.jumpPhase = 0; // He is on ground now, so reset the jump
-					newSetBack = to;
+					//newSetBack = to;
 				}
 				else { // Fly
 					data.jumpPhase++; // Enter next phase of the flight
