@@ -174,7 +174,10 @@ public class NoCheat extends JavaPlugin {
         else {
             Logger.getLogger("Minecraft").info("[NoCheat] is using SuperPerms system.");
         }
-        setupIRC();
+        
+        if(!ircLevel.equals(Level.OFF)) {
+            setupIRC();
+        }
 
         Logger.getLogger("Minecraft").info("[NoCheat] version [" + pdfFile.getVersion() + "] is enabled with the following checks: " + getActiveChecksAsString());
 

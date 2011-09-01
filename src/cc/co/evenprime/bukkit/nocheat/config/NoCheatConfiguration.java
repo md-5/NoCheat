@@ -79,7 +79,7 @@ public class NoCheatConfiguration {
             loggingNode.add(new LevelOption("logtofile", LogLevel.getLogLevelFromString(SimpleYaml.getString("logging.logtofile", LogLevel.LOW.asString(), yamlContent))));
             loggingNode.add(new LevelOption("logtoconsole", LogLevel.getLogLevelFromString(SimpleYaml.getString("logging.logtoconsole", LogLevel.HIGH.asString(), yamlContent))));
             loggingNode.add(new LevelOption("logtochat", LogLevel.getLogLevelFromString(SimpleYaml.getString("logging.logtochat", LogLevel.MED.asString(), yamlContent))));
-            loggingNode.add(new LevelOption("logtoirc", LogLevel.getLogLevelFromString(SimpleYaml.getString("logging.logtoirc", LogLevel.MED.asString(), yamlContent))));
+            loggingNode.add(new LevelOption("logtoirc", LogLevel.getLogLevelFromString(SimpleYaml.getString("logging.logtoirc", LogLevel.OFF.asString(), yamlContent))));
 
             loggingNode.add(new ShortStringOption("logtoirctag", SimpleYaml.getString("logging.logtoirctag", "nocheat", yamlContent)));
         }

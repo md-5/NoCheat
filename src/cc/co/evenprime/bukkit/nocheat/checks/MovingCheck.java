@@ -260,9 +260,10 @@ public class MovingCheck extends Check {
         if(tmp > data.horizFreedom)
             data.horizFreedom = tmp;
 
-        if(v.getY() > 0.0D) {
+        if(v.getY() >= 0.0D) {
             data.vertFreedomCounter = 50;
             data.maxYVelocity += v.getY();
+            data.setBackPoint = null;
         }
     }
     
