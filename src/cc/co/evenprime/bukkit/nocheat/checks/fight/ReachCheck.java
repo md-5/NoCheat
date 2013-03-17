@@ -1,9 +1,9 @@
 package cc.co.evenprime.bukkit.nocheat.checks.fight;
 
 import java.util.Locale;
-import net.minecraft.server.Entity;
-import net.minecraft.server.EntityComplex;
-import net.minecraft.server.EntityComplexPart;
+import net.minecraft.server.v1_5_R2.Entity;
+import net.minecraft.server.v1_5_R2.IComplex;
+import net.minecraft.server.v1_5_R2.EntityComplexPart;
 import cc.co.evenprime.bukkit.nocheat.NoCheat;
 import cc.co.evenprime.bukkit.nocheat.NoCheatPlayer;
 import cc.co.evenprime.bukkit.nocheat.actions.ParameterName;
@@ -33,7 +33,7 @@ public class ReachCheck extends FightCheck {
 
         // Safeguard, if entity is Giant or Ender Dragon, this check will fail
         // due to giant and hard to define hitboxes
-        if(entity instanceof EntityComplex || entity instanceof EntityComplexPart) {
+        if(entity instanceof IComplex || entity instanceof EntityComplexPart) {
             return false;
         }
 

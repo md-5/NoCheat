@@ -1,9 +1,9 @@
 package cc.co.evenprime.bukkit.nocheat.player;
 
-import net.minecraft.server.EntityPlayer;
-import net.minecraft.server.MobEffectList;
+import net.minecraft.server.v1_5_R2.EntityPlayer;
+import net.minecraft.server.v1_5_R2.MobEffectList;
 import org.bukkit.GameMode;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import cc.co.evenprime.bukkit.nocheat.NoCheat;
 import cc.co.evenprime.bukkit.nocheat.NoCheatPlayer;

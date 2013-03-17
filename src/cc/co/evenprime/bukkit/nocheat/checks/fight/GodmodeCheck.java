@@ -1,9 +1,9 @@
 package cc.co.evenprime.bukkit.nocheat.checks.fight;
 
 import java.util.Locale;
-import net.minecraft.server.EntityPlayer;
+import net.minecraft.server.v1_5_R2.EntityPlayer;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer;
 import cc.co.evenprime.bukkit.nocheat.NoCheat;
 import cc.co.evenprime.bukkit.nocheat.NoCheatPlayer;
 import cc.co.evenprime.bukkit.nocheat.actions.ParameterName;
@@ -112,7 +112,7 @@ public class GodmodeCheck extends FightCheck {
                             if(entity.getHealth() <= 0 && !entity.dead) {
                                 // Artifically "kill" him
                                 entity.deathTicks = 19;
-                                entity.a(true);
+                                entity.die(net.minecraft.server.v1_5_R2.DamageSource.GENERIC);
                             }
                         } catch(Exception e) {}
                     }

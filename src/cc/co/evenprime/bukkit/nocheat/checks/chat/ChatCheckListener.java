@@ -2,10 +2,11 @@ package cc.co.evenprime.bukkit.nocheat.checks.chat;
 
 import java.util.LinkedList;
 import java.util.List;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerChatEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import cc.co.evenprime.bukkit.nocheat.EventManager;
 import cc.co.evenprime.bukkit.nocheat.NoCheat;
@@ -39,31 +40,39 @@ public class ChatCheckListener implements Listener, EventManager {
      * 
      * @param event The PlayerCommandPreprocess Event
      */
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void commandPreprocess(final PlayerCommandPreprocessEvent event) {
-        // This type of event is derived from PlayerChatEvent, therefore
-        // just treat it like that
-        chat((PlayerChatEvent) event);
+        String message = handle(event.getPlayer(), event.getMessage());
+        if (message == null) {
+            event.setCancelled(true);
+        } else {
+            event.setMessage(message);
+        }
     }
 
     /**
      * We listen to PlayerChat events for obvious reasons
      * @param event The PlayerChat event
      */
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void chat(final PlayerChatEvent event) {
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled=true)
+    public void chat(final AsyncPlayerChatEvent event) {
+        String message = handle(event.getPlayer(), event.getMessage());
+        if (message == null) {
+            event.setCancelled(true);
+        } else {
+            event.setMessage(message);
+        }
+    }
 
-        if(event.isCancelled())
-            return;
-
+	private String handle(Player eplayer, String message) {
         boolean cancelled = false;
 
-        final NoCheatPlayer player = plugin.getPlayer(event.getPlayer());
+        final NoCheatPlayer player = plugin.getPlayer(eplayer);
         final ChatConfig cc = ChatCheck.getConfig(player);
         final ChatData data = ChatCheck.getData(player);
 
         // Remember the original message
-        data.message = event.getMessage();
+        data.message = message;
 
         // Now do the actual checks
 
@@ -79,11 +88,11 @@ public class ChatCheckListener implements Listener, EventManager {
 
         // If one of the checks requested the event to be cancelled, do it
         if(cancelled) {
-            event.setCancelled(cancelled);
+            return null;
         } else {
             // In case one of the events modified the message, make sure that
             // the new message gets used
-            event.setMessage(data.message);
+            return data.message;
         }
     }
 
